@@ -11,12 +11,15 @@ import {
 import Root from './Components/Root/Root.jsx';
 import Registration from './Components/LoginReg/Registration/Registration'
 import ErrorPage from './Components/ErrorPage/ErrorPage'
+import Blog from './Components/Blog/Blog'
+import About from './Components/About/About'
+import Contact from './Components/Contact/Contact'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
-    errorElement: <ErrorPage></ErrorPage>,
+    // errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -27,6 +30,22 @@ const router = createBrowserRouter([
       }, {
         path: "/register",
         element: <Registration></Registration>,
+      },
+      {
+        path: "/blog",
+        element: <Blog></Blog>,
+      },
+      {
+        path: "*",
+        element: <ErrorPage></ErrorPage>,
+      },
+      {
+        path: "/about",
+        element: <About></About>,
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>,
       }
     ],
   },
