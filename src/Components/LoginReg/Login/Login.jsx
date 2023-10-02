@@ -1,49 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContex } from '../../AuthProvider/AuthProvider';
 
 const Login = () => {
-    return (
-        <div className="hero min-h-screen bg-base-200">
-            <div className="hero-content flex-col">
-                <div className="text-center mb-5">
-                    <h1 className="text-5xl font-bold">Login now!</h1>
-                </div>
-                <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
-                    <form className="card-body">
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-                            <input required name='email' type="email" placeholder="Email" className="input input-bordered" />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-                            </label>
-                            <input required name='password' type="password" placeholder="Password" className="input input-bordered" />
-                            <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                            </label>
-                        </div>
-                        <div className="">
-                            <div className="form-control">
-                                <label className="label cursor-pointer">
-                                    <span className="label-text">Remember me</span>
-                                    <input type="checkbox" checked="checked" className="checkbox checkbox-primary" />
-                                </label>
-                            </div>
-                        </div>
-                        <div className="form-control mt-6">
-                            <button className="btn btn-primary">Login</button>
-                        </div>
-                        <div className="">
-                            <label className="label">
-                                <span className="label-text-alt">Don't have an account yet? <Link to={'/register'} className="link link-hover">Sign up</Link></span>
 
-                            </label>
-                        </div>
-                    </form>
-                </div>
+    const { signInUser } = useContext(AuthContex);
+
+    const handelLogin = (e) => {
+        e.preventDefault();
+        const email = e.target[0].value;
+        const password = e.target[1].value;
+
+        signInUser(email, password)
+            .then(() => {
+                console.log('User Login Successfully');
+            })
+            .catch(() => {
+                console.log('Login Failed');
+            })
+    }
+
+    return (
+        <div className="text-white font-bold text-center text-5xl mt-20">
+            <h2>Login Now</h2>
+
+            <form onSubmit={handelLogin} className="mt-10 w-auto">
+                <input type="email" placeholder="Enter Your Email" className="block mx-auto  p-2 rounded-md" />
+                <br />
+                <input type="password" placeholder="Enter Your Password" className="block mx-auto  p-2 rounded-md" />
+                <br />
+                <button type="submit" className="block mx-auto p-2 rounded-md bg-blue-500 hover:bg-blue-700">Login</button>
+            </form>
+            <br />
+            <div className="">
+                <p>New here? <Link to="/register" className="block mx-auto p-2 rounded-md bg-blue-500 hover:bg-blue-700">Create New Account</Link></p>
+
             </div>
         </div>
     );
